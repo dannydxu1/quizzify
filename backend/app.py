@@ -23,13 +23,17 @@ def post_example():
         
         for sentence in sentences:
             sentList.append(sentence)
-        getTxt(sentList[0])
+        questions = []
+        for i in range(len(sentList)):
+            questions.append(getTxt(sentList[i]))
+            
         try:
             with open('./format.json', 'r') as file:
                 json_data = json.load(file)
         except Exception as e:
             return str(e)
-        return f'Received POST data: {data} {json_data} {sentList}'
+        return f'Received POST data: {questions}'
+        # return f'Received POST data: {data} {json_data} {questions}'
     else:
         return 'No JSON data received in the POST request.'
 
