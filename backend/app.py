@@ -1,4 +1,5 @@
 from flask import Flask, request, json
+from pipelineTest import get_question
 
 # Create a Flask web application
 app = Flask(__name__)
@@ -25,7 +26,9 @@ def post_example():
 
 if __name__ == '__main__':
     # Run the app on the local development server
-    app.run(port=8000, debug=True)
+    print(get_question("sarthak is a genius", "sarthak"))
+    # app.run(port=8000, debug=True)
+
 
 
 
