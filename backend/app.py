@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, json
 
 # Create a Flask web application
 app = Flask(__name__)
@@ -14,7 +14,12 @@ def post_example():
     data = request.data.decode('utf-8')  # Assuming you expect JSON data in the request
     # Process the data as needed
     if data is not None:
-        return f'Received POST data: {data}'
+        try:
+            with open('./format.json', 'r') as file:
+                json_data = json.load(file)
+        except Exception as e:
+            return str(e)
+        return f'Received POST data: {data} {json_data}'
     else:
         return 'No JSON data received in the POST request.'
 
