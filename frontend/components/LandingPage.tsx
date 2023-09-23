@@ -27,15 +27,18 @@ import {
   faArrowCircleRight,
   faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 const LandingPage: React.FC = () => {
+  const router = useRouter();
   const [showButtons, setShowButtons] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [inputText, setInputText] = useState("");
 
   useEffect(() => {
     const typed = new Typed("#typed-element", {
       strings: ["Turn boring lectures into interactive quizzes."],
-      typeSpeed: 35,
+      typeSpeed: 23,
       showCursor: true,
       loop: false,
       onComplete: () => setShowButtons(true),
@@ -60,6 +63,13 @@ const LandingPage: React.FC = () => {
     console.log(`User clicked ${action}`);
   };
 
+  const goToSettingsPage = () => {
+    router.push({
+      pathname: "/settings",
+      query: { input: inputText },
+    });
+  };
+
   return (
     <Box
       h="100vh"
@@ -78,7 +88,7 @@ const LandingPage: React.FC = () => {
           offsetY="20px"
           transition={{ enter: { duration: 1 } }}
         >
-          <VStack spacing="3">
+          <VStack spacing="3" mt={30}>
             <HStack>
               <Button colorScheme="undefined" onClick={onOpen}>
                 <Box
@@ -100,26 +110,28 @@ const LandingPage: React.FC = () => {
               <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                  <ModalHeader>Alternative Transcript Input</ModalHeader>
+                  <ModalHeader>
+                    Select an Alternate Transcript Input
+                  </ModalHeader>
                   <ModalCloseButton />
-                  <ModalBody>
-                    <Button onClick={() => handleOptionClick("Option 1")} mb="5">
-                      Upload Lecture Transcript
-                    </Button>
-                    <Button onClick={() => handleOptionClick("Option 2")}>
-                    Record Live Lecture
-                    </Button>
+                  <ModalBody mb={4}>
+                    <HStack spacing={4}>
+                      {" "}
+                      <Button onClick={() => handleOptionClick("Option 1")}>
+                        Upload Lecture Transcript
+                      </Button>
+                      <Button onClick={() => handleOptionClick("Option 2")}>
+                        Record Lecture
+                      </Button>
+                    </HStack>
                   </ModalBody>
-                  <ModalFooter>
-                    <Button colorScheme="teal" onClick={onClose}>
-                      Close
-                    </Button>
-                  </ModalFooter>
                 </ModalContent>
               </Modal>
 
               <Input
                 placeholder="Paste a lecture transcript."
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
                 h="50"
                 w="400"
                 rounded="60"
@@ -127,6 +139,7 @@ const LandingPage: React.FC = () => {
                 color="black"
                 focusBorderColor="white"
                 boxShadow="md"
+                onClick={goToSettingsPage}
               />
               <Button
                 bg="white"
@@ -139,26 +152,6 @@ const LandingPage: React.FC = () => {
                 Go
               </Button>
             </HStack>
-
-            {/* <HStack spacing={4}>
-              <Button
-                colorScheme="whiteAlpha"
-                onClick={() => handleClick("Upload")}
-                rounded="50"
-                w="45%"
-              >
-                Upload
-              </Button>
-              <Text>|</Text>
-              <Button
-                colorScheme="whiteAlpha"
-                onClick={() => handleClick("Record")}
-                rounded="50"
-                w="45%"
-              >
-                Record
-              </Button>
-            </HStack> */}
           </VStack>
         </SlideFade>
       </Container>

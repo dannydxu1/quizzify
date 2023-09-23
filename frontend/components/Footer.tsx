@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
   return (
     <Box bg="teal.700" color="white" py={4}>
       <Center>
-        <Text fontWeight="bold">Contributors: </Text>
+        <Text fontWeight="bold">Contributors:&nbsp;</Text>
         <Text>{" "}</Text>
         <Flex>
           {contributors.map((contributor, index) => (
