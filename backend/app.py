@@ -1,6 +1,6 @@
 from flask import Flask, request, json
 from pipelineTest import get_question
-
+from nltk import sent_tokenize
 # Create a Flask web application
 app = Flask(__name__)
 
@@ -13,8 +13,13 @@ def hello_world():
 @app.route('/post_example', methods=['POST'])
 def post_example():
     data = request.data.decode('utf-8')  # Assuming you expect JSON data in the request
+
     # Process the data as needed
     if data is not None:
+        # sentences = sent_tokenize(data)
+        # sentList = []
+        # for i in sentences:
+        #     sentList.append(i)
         try:
             with open('./format.json', 'r') as file:
                 json_data = json.load(file)
@@ -26,8 +31,8 @@ def post_example():
 
 if __name__ == '__main__':
     # Run the app on the local development server
-    print(get_question("sarthak is a genius", "sarthak"))
-    # app.run(port=8000, debug=True)
+    # print(get_question("sarthak is a genius", "sarthak"))
+    app.run(port=8000, debug=True)
 
 
 
