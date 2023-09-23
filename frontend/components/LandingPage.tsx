@@ -20,6 +20,11 @@ import {
   SlideFade,
   Input,
   Divider,
+  FormControl,
+  RangeSlider,
+  RangeSliderTrack,
+  RangeSliderThumb,
+  RangeSliderFilledTrack,
 } from "@chakra-ui/react";
 import Typed from "typed.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,10 +34,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 
+import SettingsModal from "./SettingsModal";
+
 const LandingPage: React.FC = () => {
   const router = useRouter();
   const [showButtons, setShowButtons] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isInputModalOpen,
+    onOpen: inputModalOnOpen,
+    onClose: inputModalOnClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isQuizSettingsModalOpen,
+    onOpen: quizSettingsModalOnOpen,
+    onClose: quizSettingsModalOnClose,
+  } = useDisclosure();
   const [inputText, setInputText] = useState("");
 
   useEffect(() => {
@@ -51,24 +68,13 @@ const LandingPage: React.FC = () => {
 
   const handleOptionClick = (option: string) => {
     console.log(`You chose ${option}`);
-    onClose();
+    inputModalOnClose();
   };
 
   const bgGradient = useColorModeValue(
     "linear(to-r, teal.500, green.500)",
     "linear(to-r, teal.700, green.700)"
   );
-
-  const handleClick = (action: string) => {
-    console.log(`User clicked ${action}`);
-  };
-
-  const goToSettingsPage = () => {
-    router.push({
-      pathname: "/settings",
-      query: { input: inputText },
-    });
-  };
 
   return (
     <Box
@@ -90,7 +96,7 @@ const LandingPage: React.FC = () => {
         >
           <VStack spacing="3" mt={30}>
             <HStack>
-              <Button colorScheme="undefined" onClick={onOpen}>
+              <Button colorScheme="undefined" onClick={inputModalOnOpen}>
                 <Box
                   bg="white"
                   p={2}
@@ -107,7 +113,7 @@ const LandingPage: React.FC = () => {
                 </Box>
               </Button>
 
-              <Modal isOpen={isOpen} onClose={onClose}>
+              <Modal isOpen={isInputModalOpen} onClose={inputModalOnClose}>
                 <ModalOverlay />
                 <ModalContent>
                   <ModalHeader>
@@ -139,7 +145,6 @@ const LandingPage: React.FC = () => {
                 color="black"
                 focusBorderColor="white"
                 boxShadow="md"
-                onClick={goToSettingsPage}
               />
               <Button
                 bg="white"
@@ -148,10 +153,17 @@ const LandingPage: React.FC = () => {
                 h="50"
                 rightIcon={<FontAwesomeIcon icon={faArrowCircleRight} />}
                 boxShadow="md"
+                onClick={quizSettingsModalOnOpen}
               >
                 Go
               </Button>
             </HStack>
+            <SettingsModal
+              transcriptInputString={inputText}
+              isOpen={isQuizSettingsModalOpen}
+              onOpen={quizSettingsModalOnOpen}
+              onClose={quizSettingsModalOnClose}
+            ></SettingsModal>
           </VStack>
         </SlideFade>
       </Container>
