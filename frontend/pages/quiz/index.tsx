@@ -6,9 +6,19 @@ import {
   ChakraProvider,
   extendTheme,
   CSSReset,
+  VStack,
+  Center,
   Progress, // Import the Progress component
 } from "@chakra-ui/react";
 
+import Question from "../../components/Question";
+import QuizCard from "../../components/QuizCard";
+
+const questionData = {
+  question: "What is the capital of France?",
+  options: ["Paris", "London", "Berlin", "Madrid"],
+  correctAnswer: "Paris",
+};
 const QuizPage = () => {
   const initialDuration = 300; // Set the initial duration in seconds
   const [seconds, setSeconds] = useState(initialDuration);
@@ -31,6 +41,28 @@ const QuizPage = () => {
   const progressPercentage =
     ((initialDuration - seconds) / initialDuration) * 100;
 
+  const dummyQuestion1 = {
+    question: "What is 2 + 2?",
+    options: [
+      { label: "3", value: "3" },
+      { label: "4", value: "4" },
+      { label: "5", value: "5" },
+      { label: "6", value: "6" },
+    ],
+  };
+
+  const dummyQuestion2 = {
+    question: "What is the capital of France?",
+    options: [
+      { label: "Berlin", value: "Berlin" },
+      { label: "Madrid", value: "Madrid" },
+      { label: "Paris", value: "Paris" },
+      { label: "Rome", value: "Rome" },
+    ],
+  };
+
+  const questionsArray = [dummyQuestion1, dummyQuestion2];
+
   return (
     <ChakraProvider>
       <CSSReset />
@@ -41,15 +73,27 @@ const QuizPage = () => {
         <Text fontSize="lg">Time remaining: {formattedTime}</Text>
         {/* Add your quiz content here */}
       </Box>
-      <Box width={800} alignItems="center" justifyContent="flex-end">
-        <Progress
-          value={progressPercentage}
-          size="sm"
-          height="20px"
-          rounded="15"
-          justifyContent="flex-end"
-        />
-      </Box>
+      <VStack>
+        {questionsArray.map((questionItem, index) => (
+          <QuizCard
+            key={index}
+            question={questionItem.question}
+            options={questionItem.options}
+            questionNumber={index + 1}
+          />
+        ))}
+      </VStack>
+      <Center>
+        <Box width={800} alignItems="center" justifyContent="flex-end">
+          <Progress
+            value={progressPercentage}
+            size="sm"
+            height="20px"
+            rounded="15"
+            justifyContent="flex-end"
+          />
+        </Box>
+      </Center>
     </ChakraProvider>
   );
 };
