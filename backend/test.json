@@ -1,0 +1,29 @@
+{'questions': [{'question': 'What kind of orb of blazing, scorching, burning light is the sun?',
+'answer_choices': [{'text': 'magnificent', 'correct': True}, {'text': 'glorious', 'correct': False}, {'text':
+'glorious', 'correct': False}, {'text': 'splendid', 'correct': False}]}, {'question': 'What type of body is the essence
+of life itself?', 'answer_choices': [{'text': 'celestial', 'correct': True}, {'text': 'heavenly', 'correct': False},
+{'text': 'celestial', 'correct': False}, {'text': 'supernal', 'correct': False}]}, {'question': 'How does it rise with
+such majesty?', 'answer_choices': [{'text': 'Ohio', 'correct': False}, {'text': 'Buckeye_State', 'correct': False},
+{'text': 'oh', 'correct': True}, {'text': 'Ohio', 'correct': False}]}, {'question': 'How does it rise?',
+'answer_choices': [{'text': 'loftiness', 'correct': False}, {'text': 'stateliness', 'correct': False}, {'text':
+'majesty', 'correct': True}, {'text': 'stateliness', 'correct': False}]}, {'question': 'What defies comprehension?',
+'answer_choices': [{'text': 'grandness', 'correct': False}, {'text': 'splendor', 'correct': False}, {'text':
+'grandness', 'correct': False}, {'text': 'grandeur', 'correct': True}]}, {'question': 'What does the grandeur defy?',
+'answer_choices': [{'text': 'comprehension', 'correct': False}, {'text': 'inclusion', 'correct': False}, {'text':
+'inclusion', 'correct': False}, {'text': 'comprehension', 'correct': True}]}, {'question': 'What does its fiery embrace
+do to the earth?', 'answer_choices': [{'text': 'warms', 'correct': True}, {'text': 'warm', 'correct': False}, {'text':
+'warm', 'correct': False}, {'text': 'warm_up', 'correct': False}]}, {'question': 'What does it do to the earth?',
+'answer_choices': [{'text': 'singe', 'correct': False}, {'text': 'scorch', 'correct': False}, {'text': 'blacken',
+'correct': False}, {'text': 'scorches', 'correct': True}]}, {'question': 'What is a celestial wonder?',
+'answer_choices': [{'text': 'truly', 'correct': True}, {'text': 'in_truth', 'correct': False}, {'text': 'genuinely',
+'correct': False}, {'text': 'unfeignedly', 'correct': False}]}, {'question': 'What is a celestial wonder?',
+'answer_choices': [{'text': 'marvel', 'correct': False}, {'text': 'wonder', 'correct': True}, {'text': 'question',
+'correct': False}, {'text': 'wonder', 'correct': False}]}, {'question': 'What is a cosmic enigma?', 'answer_choices':
+[{'text': 'mystery', 'correct': False}, {'text': 'enigma', 'correct': True}, {'text': 'brain-teaser', 'correct': False},
+{'text': 'enigma', 'correct': False}]}, {'question': 'What kind of enigma is there?', 'answer_choices': [{'text':
+'cosmic', 'correct': False}, {'text': 'cosmic', 'correct': True}, {'text': 'cosmic', 'correct': False}, {'text':
+'cosmic', 'correct': False}]}, {'question': 'Inspiring, incandescent, iridescent and utterly incomprehensible?',
+'answer_choices': [{'text': 'veneration', 'correct': False}, {'text': 'awe', 'correct': False}, {'text': 'awe',
+'correct': True}, {'text': 'veneration', 'correct': False}]}, {'question': 'Iridescent, awe-inspiring, and utterly
+what?', 'answer_choices': [{'text': 'uncomprehensible', 'correct': False}, {'text': 'uncomprehensible', 'correct':
+False}, {'text': 'inexplicable', 'correct': False}, {'text': 'incomprehensible', 'correct': True}]}]}

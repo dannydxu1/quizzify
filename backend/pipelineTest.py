@@ -6,6 +6,8 @@ import torch
 import spacy
 from transformers import BertTokenizer, BertModel
 from warnings import filterwarnings as filt
+import random
+from nltk.corpus import wordnet
 
 filt('ignore')
 
@@ -83,6 +85,54 @@ def getTxt(txt):
     sentences = get_sent(txt)
     max_questions = min(len(sentences) * 2, 10)  # Maximum of around 10 questions
     questions = []
+    all_questions = []
+
+    questionAns = {
+
+
+    }
+
+    def generateFakeAnsMath(ans):
+        variation = 0.3
+        similar_values = []
+        for _ in range(3):
+            variation = random.uniform(-0.2, 0.2)
+            similar_value = ans + variation
+            similar_values.append(similar_value)
+        return similar_values
+
+    def get_synonyms(word):
+        synonyms = set()
+        for syn in wordnet.synsets(word):
+            for lemma in syn.lemmas():
+                synonyms.add(lemma.name())
+        
+        synonyms = list(synonyms)
+
+        return synonyms
+
+
+    def generateFakeAnsWords(ans):
+        similar_phrases = []
+        input_words = ans.split()
+        
+        for _ in range(3):
+            modified_words = []
+            used_synonyms = set()  # Keep track of synonyms used in this iteration
+            for word in input_words:
+                synonyms = get_synonyms(word)
+                available_synonyms = list(set(synonyms) - used_synonyms)  # Filter out used synonyms
+                if available_synonyms:
+                    synonym = random.choice(available_synonyms)
+                    modified_words.append(synonym)
+                    used_synonyms.add(synonym)
+                else:
+                    modified_words.append(word)
+            
+            modified_phrase = " ".join(modified_words)
+            similar_phrases.append(modified_phrase)
+        
+        return similar_phrases
 
     for ans, context in get_key_words(txt, 'st'):
         if len(questions) >= max_questions:
@@ -90,9 +140,48 @@ def getTxt(txt):
         print('=======================================')
         print()
         question = get_question(context, ans)
-        questions.append(question)
-        print(question)
+        answers = []
+        
+        if isinstance(ans, float):
+            getAns = generateFakeAnsMath(ans)
+        else:
+            getAns = generateFakeAnsWords(ans)
+
+        for i in range(len(getAns)):
+            answers.append({
+                    "text": getAns[i],
+                    "correct": False
+                })
+        
+        
+        answers.append({
+            "text": ans,
+            "correct": True
+        })
+
+        
+        
+        random.shuffle(answers)
+        print(answers)
+        
+        # random_values = random.sample(range(4), 4)
+
+        # print(len(random_values))
+        # print(random_values)
+
+        # print("this is the random value", answers[random_values[0]])
+        new_question = {
+            "question": question,
+            "answer_choices": answers
+        
+        }
+        
+        questions.append(new_question)
+        #questions.append(question)
+        #print(question)
         print()
+    
+    #print(questionAns)
 
     return questions
 
