@@ -95,7 +95,7 @@ const LandingPage: React.FC = () => {
       {/* Top left text */}
       <Box
         position="absolute"
-        top="20px"
+        top="35vpx"
         left="20px"
         fontSize="2xl"
         fontWeight="extrabold"
