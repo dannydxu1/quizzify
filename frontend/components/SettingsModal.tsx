@@ -54,9 +54,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   };
   const router = useRouter();
   const handleClick = async () => {
-    const url = "http://your-api-endpoint";
+    const url = "http://localhost:8000/post_example";
     const payload = {
-      formData,
+      // formData,
       transcript: transcriptInputString,
     };
     fetch(url, {
