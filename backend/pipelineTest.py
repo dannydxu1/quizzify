@@ -85,12 +85,6 @@ def getTxt(txt):
     sentences = get_sent(txt)
     max_questions = min(len(sentences) * 2, 10)  # Maximum of around 10 questions
     questions = []
-    all_questions = []
-
-    questionAns = {
-
-
-    }
 
     def generateFakeAnsMath(ans):
         variation = 0.3
@@ -137,8 +131,7 @@ def getTxt(txt):
     for ans, context in get_key_words(txt, 'st'):
         if len(questions) >= max_questions:
             break
-        print('=======================================')
-        print()
+        
         question = get_question(context, ans)
         answers = []
         
@@ -153,14 +146,7 @@ def getTxt(txt):
         answers.append(ans)
         
         random.shuffle(answers)
-        print(answers)
         
-        # random_values = random.sample(range(4), 4)
-
-        # print(len(random_values))
-        # print(random_values)
-
-        # print("this is the random value", answers[random_values[0]])
         new_question = {
             "question": question,
             "options": answers,
@@ -168,11 +154,7 @@ def getTxt(txt):
         }
         
         questions.append(new_question)
-        #questions.append(question)
-        #print(question)
-        print()
-    
-    #print(questionAns)
+        
 
     return questions
 
