@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import {
   Modal,
   ModalOverlay,
@@ -43,7 +44,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
       [field.question]: value,
     });
   };
-
+  const router = useRouter();
   const handleClick = async () => {
     const url = "http://your-api-endpoint";
     const payload = {
@@ -62,6 +63,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         console.log(data);
       })
       .catch((error) => console.error("Error:", error));
+    
+    router.push("./quiz");
   };
 
   const formFields: FormField[] = [
