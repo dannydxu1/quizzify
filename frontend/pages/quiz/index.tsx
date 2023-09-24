@@ -15,9 +15,11 @@ import { MdHome } from "react-icons/md";
 
 import QuizCard from "../../components/QuizCard";
 import { Question } from "../../types/types";
-//TODO: Add API call
+import { useInputText } from "../../components/InputTextContext";
+import { useQuiz } from "@/components/QuizContext";
 
 const QuizPage = () => {
+  const { questions } = useQuiz(); // Add this line
   const initialDuration = 300; // Set the initial duration in seconds
   const [seconds, setSeconds] = useState(initialDuration);
 
@@ -52,7 +54,8 @@ const QuizPage = () => {
   };
 
   //replace header
-  const questionsArray: Question[] = [dummyQuestion1, dummyQuestion2];
+  // const questionsArray: Question[] = [dummyQuestion1, dummyQuestion2];
+  const questionsArray = questions.questions;
   //move this back
   return (
     <Box p={4}>

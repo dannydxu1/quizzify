@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Spinner, Center, Text, Input, HStack } from "@chakra-ui/react";
 import { useInputText } from "../../components/InputTextContext";
+import { useQuiz } from "@/components/QuizContext";
 
 const LoadingPage: React.FC = () => {
   const router = useRouter();
   const { inputText, setInputText } = useInputText();
+  const { setQuestions } = useQuiz(); // Add this line
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<String>("");
 
@@ -25,6 +27,7 @@ const LoadingPage: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setQuestions(data);
         router.push("/quiz"); // Navigate only if the request is successful
       })
       .catch((error) => {
