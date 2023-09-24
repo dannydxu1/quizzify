@@ -23,21 +23,27 @@ sentList = []
 
 @app.route('/post_example', methods=['POST'])
 def post_example():
-    # Assuming you expect JSON data in the request
-    data = request.data.decode('utf-8')
+    sent_data = request.data.decode('utf-8')  # Assuming you expect JSON data in the request
+    json_data = json.loads(sent_data)
+    data = json_data.get("transcript", None)
+
+    print(data)
 
     # Process the data as needed
     if data is not None:
+        
+        sentences = [sentence.strip() for sentence in re.split(r'(?<=[.!?])\s+', data)]
+        
+        for sentence in sentences:
+            sentList.append(sentence)
+        questions = {
+            "questions": [
 
-        # sentences = [sentence.strip()
-        #              for sentence in re.split(r'(?<=[.!?])\s+', data)]
-
-        # for sentence in sentences:
-        #     sentList.append(sentence)
-        # questions = []
-        # for i in range(len(sentList)):
-        #     questions.append(getTxt(sentList[i]))
-
+            ]
+        }
+        for i in range(len(sentList)):
+            questions["questions"] += getTxt(sentList[i])
+          
         try:
             with open('./format.json', 'r') as file:
                 json_data = json.load(file)

@@ -1,35 +1,28 @@
-# from sentence_transformers import SentenceTransformer
-# from transformers import T5ForConditionalGeneration, AutoTokenizer
-# from sklearn.feature_extraction.text import CountVectorizer
-# from sklearn.metrics.pairwise import cosine_similarity
-# import torch
-# import spacy
-# from transformers import BertTokenizer, BertModel
-# from warnings import filterwarnings as filt
-# import numpy as np
-# from sklearn.feature_extraction import text
-# from sklearn.feature_extraction.text import TfidfVectorizer
+from sentence_transformers import SentenceTransformer
+from transformers import T5ForConditionalGeneration, AutoTokenizer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import torch
+import spacy
+from transformers import BertTokenizer, BertModel
+from warnings import filterwarnings as filt
+import random
+from nltk.corpus import wordnet
 
+filt('ignore')
 
-# filt('ignore')
+bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+bert_model = BertModel.from_pretrained("bert-base-uncased")
+model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+nlp = spacy.load("en_core_web_sm")
 
-
-# bert_model = BertModel.from_pretrained("bert-base-uncased")
-# model = SentenceTransformer('distilbert-base-nli-mean-tokens')
-# nlp = spacy.load("en_core_web_sm")
-# bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-# bert_model = BertModel.from_pretrained("bert-base-uncased")
-
-
-# def getTxt(txt):
-#     def get_question(sentence, answer):
-#         mdl = T5ForConditionalGeneration.from_pretrained(
-#             'ramsrigouthamg/t5_squad_v1')
-#         tknizer = AutoTokenizer.from_pretrained('ramsrigouthamg/t5_squad_v1')
-#         text = "context: {} answer: {}".format(sentence, answer)
-#         max_len = 256
-#         encoding = tknizer.encode_plus(
-#             text, max_length=max_len, pad_to_max_length=False, truncation=True, return_tensors="pt")
+def getTxt(txt):
+    def get_question(sentence, answer):
+        mdl = T5ForConditionalGeneration.from_pretrained('ramsrigouthamg/t5_squad_v1')
+        tknizer = AutoTokenizer.from_pretrained('ramsrigouthamg/t5_squad_v1')
+        text = "context: {} answer: {}".format(sentence, answer)
+        max_len = 256
+        encoding = tknizer.encode_plus(text, max_length=max_len, pad_to_max_length=False, truncation=True, return_tensors="pt")
 
 #         input_ids, attention_mask = encoding["input_ids"], encoding["attention_mask"]
 
@@ -131,20 +124,97 @@
 
 #         return keywords
 
-#     sentences = get_sent(txt)
-#     # Maximum of around 10 questions
-#     max_questions = min(len(sentences) * 2, 10)
-#     questions = []
+    sentences = get_sent(txt)
+    max_questions = min(len(sentences) * 2, 10)  # Maximum of around 10 questions
+    questions = []
+    all_questions = []
 
-#     for ans, context in get_key_words(txt, 't'):
-#         # if len(questions) >= max_questions:
-#         #     break
-#         print('=======================================')
-#         print()
-#         question = get_question(context, ans)
-#         questions.append(question)
-#         print(question, ans)
-#         print()
+    questionAns = {
+
+
+    }
+
+    def generateFakeAnsMath(ans):
+        variation = 0.3
+        similar_values = []
+        for _ in range(3):
+            variation = random.uniform(-0.2, 0.2)
+            similar_value = ans + variation
+            similar_values.append(similar_value)
+        return similar_values
+
+    def get_synonyms(word):
+        synonyms = set()
+        for syn in wordnet.synsets(word):
+            for lemma in syn.lemmas():
+                synonyms.add(lemma.name())
+        
+        synonyms = list(synonyms)
+
+        return synonyms
+
+
+    def generateFakeAnsWords(ans):
+        similar_phrases = []
+        input_words = ans.split()
+        
+        for _ in range(3):
+            modified_words = []
+            used_synonyms = set()  # Keep track of synonyms used in this iteration
+            for word in input_words:
+                synonyms = get_synonyms(word)
+                available_synonyms = list(set(synonyms) - used_synonyms)  # Filter out used synonyms
+                if available_synonyms:
+                    synonym = random.choice(available_synonyms)
+                    modified_words.append(synonym)
+                    used_synonyms.add(synonym)
+                else:
+                    modified_words.append(word)
+            
+            modified_phrase = " ".join(modified_words)
+            similar_phrases.append(modified_phrase)
+        
+        return similar_phrases
+
+    for ans, context in get_key_words(txt, 'st'):
+        if len(questions) >= max_questions:
+            break
+        print('=======================================')
+        print()
+        question = get_question(context, ans)
+        answers = []
+        
+        if isinstance(ans, float):
+            getAns = generateFakeAnsMath(ans)
+        else:
+            getAns = generateFakeAnsWords(ans)
+
+        for i in range(len(getAns)):
+            answers.append(getAns[i])
+        
+        answers.append(ans)
+        
+        random.shuffle(answers)
+        print(answers)
+        
+        # random_values = random.sample(range(4), 4)
+
+        # print(len(random_values))
+        # print(random_values)
+
+        # print("this is the random value", answers[random_values[0]])
+        new_question = {
+            "question": question,
+            "options": answers,
+            "correctAnswer": ans
+        }
+        
+        questions.append(new_question)
+        #questions.append(question)
+        #print(question)
+        print()
+    
+    #print(questionAns)
 
 #     return questions
 
