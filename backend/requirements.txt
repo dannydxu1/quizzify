@@ -13,6 +13,7 @@ cymem==2.0.8
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0-py3-none-any.whl
 filelock==3.10.7
 Flask==2.3.3
+Flask-Cors==4.0.0
 fonttools==4.39.3
 fsspec==2023.9.2
 huggingface-hub==0.17.2
