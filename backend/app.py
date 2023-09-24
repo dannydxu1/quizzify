@@ -1,6 +1,7 @@
 from flask import Flask, request, json
 from nltk import sent_tokenize
 from flask_cors import CORS
+from pipelineTest import getTxt
 import re
 # from pipelineTest import getTxt
 
@@ -27,8 +28,6 @@ def post_example():
     json_data = json.loads(sent_data)
     data = json_data.get("transcript", None)
 
-    print(data)
-
     # Process the data as needed
     if data is not None:
         
@@ -44,14 +43,10 @@ def post_example():
         for i in range(len(sentList)):
             questions["questions"] += getTxt(sentList[i])
           
-        try:
-            with open('./format.json', 'r') as file:
-                json_data = json.load(file)
-                return json_data
-        except Exception as e:
-            return str(e)
-        # return f'Received POST data: {questions}'
-        # return f'Received POST data: {data} {json_data} {questions}'
+    
+        return questions
+        
+        
     else:
         return 'No JSON data received in the POST request.'
 
