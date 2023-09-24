@@ -47,6 +47,7 @@ const QuizPage = () => {
       { label: "5", value: "5" },
       { label: "6", value: "6" },
     ],
+    correctAnswer: "4",
   };
 
   const dummyQuestion2 = {
@@ -57,6 +58,7 @@ const QuizPage = () => {
       { label: "Paris", value: "Paris" },
       { label: "Rome", value: "Rome" },
     ],
+    correctAnswer: "Paris",
   };
 
   const questionsArray = [dummyQuestion1, dummyQuestion2];
@@ -92,6 +94,7 @@ const QuizPage = () => {
             question={questionItem.question}
             options={questionItem.options}
             questionNumber={index + 1}
+            correctAnswer={questionItem.correctAnswer}
           />
         ))}
       </VStack>

@@ -17,7 +17,7 @@ const QuizCard: React.FC<QuizCardProps> = ({
   question,
   options,
   questionNumber,
-  correctAnswer, // new prop
+  correctAnswer,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
@@ -36,7 +36,20 @@ const QuizCard: React.FC<QuizCardProps> = ({
       boxShadow="md"
       my={5}
     >
-      {/* ... (existing JSX) */}
+      <Flex justifyContent="space-between" alignItems="center">
+        <Text fontSize="xl" fontWeight="bold">
+          {question}
+        </Text>
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          bgGradient="linear(to-l, teal.500, green.500)"
+          bgClip="text"
+        >
+          {`Q.${questionNumber}`}
+        </Text>
+      </Flex>
+      <Divider my={4} />
       <VStack spacing={3} alignItems="stretch">
         {options.map((option, index) => (
           <Box
