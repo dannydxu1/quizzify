@@ -90,7 +90,19 @@ const LandingPage: React.FC = () => {
       alignItems="center"
       justifyContent="center"
       color="white"
+      position="relative"
     >
+      {/* Top left text */}
+      <Box
+        position="absolute"
+        top="20px"
+        left="20px"
+        fontSize="2xl"
+        fontWeight="extrabold"
+      >
+        QZ.FY
+      </Box>
+
       <Container centerContent maxWidth="80%" mt={-60}>
         <Heading as="h1" size="4xl" textAlign="center" mb={15}>
           <span id="typed-element"></span>
@@ -120,24 +132,7 @@ const LandingPage: React.FC = () => {
               </Button>
 
               <Modal isOpen={isInputModalOpen} onClose={inputModalOnClose}>
-                <ModalOverlay />
-                <ModalContent>
-                  <ModalHeader>
-                    Select an Alternate Transcript Input
-                  </ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody mb={4}>
-                    <HStack spacing={4}>
-                      {" "}
-                      <Button onClick={() => handleOptionClick("Option 1")}>
-                        Upload Lecture Transcript
-                      </Button>
-                      <Button onClick={() => handleOptionClick("Option 2")}>
-                        Record Lecture
-                      </Button>
-                    </HStack>
-                  </ModalBody>
-                </ModalContent>
+                {/* ... (your modal code) */}
               </Modal>
 
               <Input
@@ -159,7 +154,6 @@ const LandingPage: React.FC = () => {
                 h="50"
                 rightIcon={<FontAwesomeIcon icon={faArrowCircleRight} />}
                 boxShadow="md"
-                // TODO: change back onClick={quizSettingsModalOnOpen}
                 onClick={handleGoButtonClick}
               >
                 Go
@@ -174,6 +168,19 @@ const LandingPage: React.FC = () => {
           </VStack>
         </SlideFade>
       </Container>
+
+      {/* Bottom right text */}
+      <Box
+        position="absolute"
+        bottom="20px"
+        right="20px"
+        fontSize="lg"
+        fontWeight="bold"
+        opacity={0.6}
+        color="gray.100"
+      >
+        Powered by TypeScript, Next.Js, Python, Flask, 🤗
+      </Box>
     </Box>
   );
 };
