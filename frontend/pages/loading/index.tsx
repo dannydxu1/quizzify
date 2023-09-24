@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Spinner, Center, Text, Input } from "@chakra-ui/react";
+import { Spinner, Center, Text, Input, HStack } from "@chakra-ui/react";
 import { useInputText } from "../../components/InputTextContext";
 
 const LoadingPage: React.FC = () => {
@@ -14,6 +14,7 @@ const LoadingPage: React.FC = () => {
     const payload = {
       transcript: inputText,
     };
+    console.log("Sending request to backend");
     fetch(url, {
       method: "POST",
       headers: {
@@ -36,15 +37,25 @@ const LoadingPage: React.FC = () => {
   }, [inputText, router]);
 
   return (
-    <Center>
+    <Center h="80vh">
       {loading ? (
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="blue.500"
-          size="xl"
-        />
+        <HStack>
+          <Text
+            fontSize="xl"
+            fontWeight="bold"
+            bgGradient="linear(to-l, teal.500, green.500)"
+            bgClip="text"
+          >
+            Loading...
+          </Text>
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="teal.400"
+            color="green.500"
+            size="xl"
+          />
+        </HStack>
       ) : error ? (
         <>
           <Text>{error}</Text>
