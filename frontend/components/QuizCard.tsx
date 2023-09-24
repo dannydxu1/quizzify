@@ -1,7 +1,7 @@
 import { Box, Divider, Text, VStack, Flex } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 
-import { Question } from "../../types/types";
+import { Question } from "../types/types";
 
 //represents a single question with its associated answers
 interface QuizCardProps {

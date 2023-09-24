@@ -14,7 +14,7 @@ import {
 import { MdHome } from "react-icons/md";
 
 import QuizCard from "../../components/QuizCard";
-import { Question } from "../../../types/types";
+import { Question } from "../../types/types";
 //TODO: Add API call
 
 const QuizPage = () => {
