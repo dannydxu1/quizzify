@@ -148,18 +148,9 @@ def getTxt(txt):
             getAns = generateFakeAnsWords(ans)
 
         for i in range(len(getAns)):
-            answers.append({
-                    "text": getAns[i],
-                    "correct": False
-                })
+            answers.append(getAns[i])
         
-        
-        answers.append({
-            "text": ans,
-            "correct": True
-        })
-
-        
+        answers.append(ans)
         
         random.shuffle(answers)
         print(answers)
@@ -172,8 +163,8 @@ def getTxt(txt):
         # print("this is the random value", answers[random_values[0]])
         new_question = {
             "question": question,
-            "answer_choices": answers
-        
+            "options": answers,
+            "correctAnswer": ans
         }
         
         questions.append(new_question)

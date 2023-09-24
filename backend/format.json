@@ -2,54 +2,30 @@
   "questions": [
     {
       "question": "What is Python?",
-      "answer_choices": [
-        {
-          "text": "A high-level programming language known for its simplicity and readability.",
-          "correct": true
-        },
-        {
-          "text": "A low-level programming language used for system programming.",
-          "correct": false
-        },
-        {
-          "text": "A markup language used for web development.",
-          "correct": false
-        }
-      ]
+      "options": [
+        "A high-level programming language known for its simplicity and readability.",
+        "A low-level programming language used for system programming.",
+        "A markup language used for web development."
+      ],
+      "correctAnswer": "A high-level programming language known for its simplicity and readability."
     },
     {
-      "question": "How do you define a function in Python?",
-      "answer_choices": [
-        {
-          "text": "Using the 'function' keyword followed by the function name and parameters.",
-          "correct": false
-        },
-        {
-          "text": "Using the 'def' keyword followed by the function name and parameters.",
-          "correct": true
-        },
-        {
-          "text": "Using the 'method' keyword followed by the function name and parameters.",
-          "correct": false
-        }
-      ]
+      "question": "What is Python?",
+      "options": [
+        "A high-level programming language known for its simplicity and readability.",
+        "A low-level programming language used for system programming.",
+        "A markup language used for web development."
+      ],
+      "correctAnswer": "A high-level programming language known for its simplicity and readability."
     },
     {
-      "question": "What is a Python list comprehension?",
-      "answer_choices": [
-        {
-          "text": "A concise way to create lists in Python by applying an expression to each item in an iterable.",
-          "correct": true
-        },
-        {
-          "text": "A way to define lists in Python using square brackets.",
-          "correct": false
-        },
-        {
-          "text": "A method to filter elements from a list in Python.",
-          "correct": false
-        }
-      ]
+      "question": "What is Python?",
+      "options": [
+        "A high-level programming language known for its simplicity and readability.",
+        "A low-level programming language used for system programming.",
+        "A markup language used for web development."
+      ],
+      "correctAnswer": "A high-level programming language known for its simplicity and readability."
     }
   ]
 }
