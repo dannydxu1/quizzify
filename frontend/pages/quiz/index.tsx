@@ -4,19 +4,20 @@ import {
   Heading,
   Text,
   Flex,
+  Link,
+  Button,
   VStack,
+  Icon,
   Center,
   Progress, // Import the Progress component
 } from "@chakra-ui/react";
+import { MdHome } from "react-icons/md";
 
 import Question from "../../components/Question";
 import QuizCard from "../../components/QuizCard";
 
-const questionData = {
-  question: "What is the capital of France?",
-  options: ["Paris", "London", "Berlin", "Madrid"],
-  correctAnswer: "Paris",
-};
+//TODO: Add API call
+
 const QuizPage = () => {
   const initialDuration = 300; // Set the initial duration in seconds
   const [seconds, setSeconds] = useState(initialDuration);
@@ -65,8 +66,8 @@ const QuizPage = () => {
 
   return (
     <Box p={4}>
-      <Center>
-        <Flex justifyContent="space-between" alignItems="center">
+      <Flex justify="space-between" align="center" w="100%">
+        <Box>
           <Text
             fontSize="lg"
             fontWeight="semibold"
@@ -74,7 +75,9 @@ const QuizPage = () => {
             color={formattedTime === "00:00" ? "red.500" : "inherit"}
           >
             Time Remaining: {formattedTime}
-          </Text>{" "}
+          </Text>
+        </Box>
+        <Box mx="auto">
           <Center flex="1">
             <Box width={800} alignItems="center" justifyContent="flex-start">
               <Progress
@@ -85,19 +88,26 @@ const QuizPage = () => {
               />
             </Box>
           </Center>
-        </Flex>
+        </Box>{" "}
+        <Box>
+          <Link href="/">
+            <Button leftIcon={<Icon as={MdHome} />}>Home</Button>
+          </Link>
+        </Box>
+      </Flex>
+      <Center>
+        <VStack>
+          {questionsArray.map((questionItem, index) => (
+            <QuizCard
+              key={index}
+              question={questionItem.question}
+              options={questionItem.options}
+              questionNumber={index + 1}
+              correctAnswer={questionItem.correctAnswer}
+            />
+          ))}
+        </VStack>
       </Center>
-      <VStack>
-        {questionsArray.map((questionItem, index) => (
-          <QuizCard
-            key={index}
-            question={questionItem.question}
-            options={questionItem.options}
-            questionNumber={index + 1}
-            correctAnswer={questionItem.correctAnswer}
-          />
-        ))}
-      </VStack>
     </Box>
   );
 };

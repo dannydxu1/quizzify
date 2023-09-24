@@ -37,7 +37,7 @@ const QuizCard: React.FC<QuizCardProps> = ({
 
   return (
     <Box
-      w="90%"
+      w="90vh"
       borderWidth="1px"
       borderRadius="lg"
       p={4}
