@@ -84,13 +84,12 @@ const QuizPage = () => {
         ))}
       </VStack>
       <Center>
-        <Box width={800} alignItems="center" justifyContent="flex-end">
+        <Box width={800} justifyContent="flex-start">
           <Progress
             value={progressPercentage}
             size="sm"
             height="20px"
             rounded="15"
-            justifyContent="flex-end"
           />
         </Box>
       </Center>
