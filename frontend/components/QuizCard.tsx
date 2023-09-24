@@ -1,14 +1,12 @@
 import { Box, Divider, Text, VStack, Flex } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 
-type Option = {
-  label: string;
-  value: string;
-};
+import { Question } from "../../types/types";
 
+//represents a single question with its associated answers
 interface QuizCardProps {
   question: string;
-  options: Option[];
+  options: string[];
   questionNumber: number;
   correctAnswer: String;
 }
@@ -28,11 +26,11 @@ const QuizCard: React.FC<QuizCardProps> = ({
     }
   }, [selectedOption, correctAnswer]);
 
-  const handleOptionClick = (option: Option) => {
+  const handleOptionClick = (option: string) => {
     if (isCorrect) {
       return;
     }
-    setSelectedOption(option.value);
+    setSelectedOption(option);
   };
 
   return (
@@ -62,7 +60,7 @@ const QuizCard: React.FC<QuizCardProps> = ({
         {options.map((option, index) => {
           // Determine the background color
           const bgColor =
-            option.value === selectedOption
+            option === selectedOption
               ? isCorrect
                 ? "green.100"
                 : "red.100"
@@ -83,7 +81,7 @@ const QuizCard: React.FC<QuizCardProps> = ({
               _hover={{ bg: hoverBg }} // Apply the hover color
               bg={bgColor}
               color={
-                option.value === selectedOption
+                option === selectedOption
                   ? isCorrect
                     ? "green.800"
                     : "red.800"
@@ -91,7 +89,7 @@ const QuizCard: React.FC<QuizCardProps> = ({
               }
               onClick={() => handleOptionClick(option)}
             >
-              {option.label}
+              {option}
             </Box>
           );
         })}
