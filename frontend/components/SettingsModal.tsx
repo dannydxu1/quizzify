@@ -37,7 +37,15 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   onOpen,
   onClose,
 }) => {
-  const [formData, setFormData] = useState({});
+  const defaultFormData = {
+    "How many questions for this quiz?": "5",
+    "Time limit (sec) per question?": "30",
+    "Enable free response questions?": "No",
+    "Randomize the question order?": "No",
+  };
+
+  const [formData, setFormData] = useState(defaultFormData);
+
   const handleOptionChange = (value: String, field: FormField) => {
     setFormData({
       ...formData,
@@ -46,9 +54,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   };
   const router = useRouter();
   const handleClick = async () => {
-    const url = "http://your-api-endpoint";
+    const url = "http://localhost:8000/post_example";
     const payload = {
-      formData,
+      // formData,
       transcript: transcriptInputString,
     };
     fetch(url, {
@@ -63,7 +71,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         console.log(data);
       })
       .catch((error) => console.error("Error:", error));
-    
+
     router.push("./quiz");
   };
 
@@ -104,7 +112,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
               <FormControl key={index}>
                 <FormLabel>{field.question}</FormLabel>
                 {field.type === "radio" && (
-                  <RadioGroup onChange={(e) => handleOptionChange(e, field)}>
+                  <RadioGroup
+                    onChange={(e) => handleOptionChange(e, field)}
+                    value={formData[field.question as keyof typeof formData]}
+                  >
                     <HStack spacing="24px">
                       {field.options.map((option, i) => (
                         <Radio key={i} value={option} colorScheme="teal">

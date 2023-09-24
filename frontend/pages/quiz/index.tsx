@@ -3,22 +3,21 @@ import {
   Box,
   Heading,
   Text,
-  ChakraProvider,
-  extendTheme,
-  CSSReset,
+  Flex,
+  Link,
+  Button,
   VStack,
+  Icon,
   Center,
   Progress, // Import the Progress component
 } from "@chakra-ui/react";
+import { MdHome } from "react-icons/md";
 
 import Question from "../../components/Question";
 import QuizCard from "../../components/QuizCard";
 
-const questionData = {
-  question: "What is the capital of France?",
-  options: ["Paris", "London", "Berlin", "Madrid"],
-  correctAnswer: "Paris",
-};
+//TODO: Add API call
+
 const QuizPage = () => {
   const initialDuration = 300; // Set the initial duration in seconds
   const [seconds, setSeconds] = useState(initialDuration);
@@ -49,6 +48,7 @@ const QuizPage = () => {
       { label: "5", value: "5" },
       { label: "6", value: "6" },
     ],
+    correctAnswer: "4",
   };
 
   const dummyQuestion2 = {
@@ -59,42 +59,56 @@ const QuizPage = () => {
       { label: "Paris", value: "Paris" },
       { label: "Rome", value: "Rome" },
     ],
+    correctAnswer: "Paris",
   };
 
   const questionsArray = [dummyQuestion1, dummyQuestion2];
 
   return (
-    <ChakraProvider>
-      <CSSReset />
-      <Box p={4}>
-        <Heading as="h1" size="xl" mb={4}>
-          Quiz Timer
-        </Heading>
-        <Text fontSize="lg">Time remaining: {formattedTime}</Text>
-        {/* Add your quiz content here */}
-      </Box>
-      <VStack>
-        {questionsArray.map((questionItem, index) => (
-          <QuizCard
-            key={index}
-            question={questionItem.question}
-            options={questionItem.options}
-            questionNumber={index + 1}
-          />
-        ))}
-      </VStack>
-      <Center>
-        <Box width={800} alignItems="center" justifyContent="flex-end">
-          <Progress
-            value={progressPercentage}
-            size="sm"
-            height="20px"
-            rounded="15"
-            justifyContent="flex-end"
-          />
+    <Box p={4}>
+      <Flex justify="space-between" align="center" w="100%">
+        <Box>
+          <Text
+            fontSize="lg"
+            fontWeight="semibold"
+            pr={10}
+            color={formattedTime === "00:00" ? "red.500" : "inherit"}
+          >
+            Time Remaining: {formattedTime}
+          </Text>
         </Box>
+        <Box mx="auto">
+          <Center flex="1">
+            <Box width={800} alignItems="center" justifyContent="flex-start">
+              <Progress
+                value={progressPercentage}
+                size="sm"
+                height="20px"
+                rounded="15"
+              />
+            </Box>
+          </Center>
+        </Box>{" "}
+        <Box>
+          <Link href="/">
+            <Button leftIcon={<Icon as={MdHome} />}>Home</Button>
+          </Link>
+        </Box>
+      </Flex>
+      <Center>
+        <VStack>
+          {questionsArray.map((questionItem, index) => (
+            <QuizCard
+              key={index}
+              question={questionItem.question}
+              options={questionItem.options}
+              questionNumber={index + 1}
+              correctAnswer={questionItem.correctAnswer}
+            />
+          ))}
+        </VStack>
       </Center>
-    </ChakraProvider>
+    </Box>
   );
 };
 
