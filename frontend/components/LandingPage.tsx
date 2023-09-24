@@ -33,6 +33,7 @@ import {
   faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import { useInputText } from "./InputTextContext"; // Import this line
 
 import SettingsModal from "./SettingsModal";
 
@@ -50,7 +51,7 @@ const LandingPage: React.FC = () => {
     onOpen: quizSettingsModalOnOpen,
     onClose: quizSettingsModalOnClose,
   } = useDisclosure();
-  const [inputText, setInputText] = useState("");
+  const { inputText, setInputText } = useInputText();
 
   useEffect(() => {
     const typed = new Typed("#typed-element", {
@@ -65,6 +66,11 @@ const LandingPage: React.FC = () => {
       typed.destroy();
     };
   }, []);
+
+  const handleGoButtonClick = () => {
+    setInputText(inputText); // Assuming you've imported useInputText
+    router.push("/loading");
+  };
 
   const handleOptionClick = (option: string) => {
     console.log(`You chose ${option}`);
@@ -153,7 +159,8 @@ const LandingPage: React.FC = () => {
                 h="50"
                 rightIcon={<FontAwesomeIcon icon={faArrowCircleRight} />}
                 boxShadow="md"
-                onClick={quizSettingsModalOnOpen}
+                // TODO: change back onClick={quizSettingsModalOnOpen}
+                onClick={handleGoButtonClick}
               >
                 Go
               </Button>
