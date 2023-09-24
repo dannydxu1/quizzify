@@ -3,9 +3,7 @@ import {
   Box,
   Heading,
   Text,
-  ChakraProvider,
-  extendTheme,
-  CSSReset,
+  Flex,
   VStack,
   Center,
   Progress, // Import the Progress component
@@ -49,6 +47,7 @@ const QuizPage = () => {
       { label: "5", value: "5" },
       { label: "6", value: "6" },
     ],
+    correctAnswer: "4",
   };
 
   const dummyQuestion2 = {
@@ -59,20 +58,35 @@ const QuizPage = () => {
       { label: "Paris", value: "Paris" },
       { label: "Rome", value: "Rome" },
     ],
+    correctAnswer: "Paris",
   };
 
   const questionsArray = [dummyQuestion1, dummyQuestion2];
 
   return (
-    <ChakraProvider>
-      <CSSReset />
-      <Box p={4}>
-        <Heading as="h1" size="xl" mb={4}>
-          Quiz Timer
-        </Heading>
-        <Text fontSize="lg">Time remaining: {formattedTime}</Text>
-        {/* Add your quiz content here */}
-      </Box>
+    <Box p={4}>
+      <Center>
+        <Flex justifyContent="space-between" alignItems="center">
+          <Text
+            fontSize="lg"
+            fontWeight="semibold"
+            pr={10}
+            color={formattedTime === "00:00" ? "red.500" : "inherit"}
+          >
+            Time Remaining: {formattedTime}
+          </Text>{" "}
+          <Center flex="1">
+            <Box width={800} alignItems="center" justifyContent="flex-start">
+              <Progress
+                value={progressPercentage}
+                size="sm"
+                height="20px"
+                rounded="15"
+              />
+            </Box>
+          </Center>
+        </Flex>
+      </Center>
       <VStack>
         {questionsArray.map((questionItem, index) => (
           <QuizCard
@@ -80,20 +94,11 @@ const QuizPage = () => {
             question={questionItem.question}
             options={questionItem.options}
             questionNumber={index + 1}
+            correctAnswer={questionItem.correctAnswer}
           />
         ))}
       </VStack>
-      <Center>
-        <Box width={800} justifyContent="flex-start">
-          <Progress
-            value={progressPercentage}
-            size="sm"
-            height="20px"
-            rounded="15"
-          />
-        </Box>
-      </Center>
-    </ChakraProvider>
+    </Box>
   );
 };
 
