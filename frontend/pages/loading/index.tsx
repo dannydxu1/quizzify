@@ -37,7 +37,7 @@ const LoadingPage: React.FC = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [inputText, router]);
+  }, [inputText, router, setQuestions]);
 
   return (
     <Center h="80vh">

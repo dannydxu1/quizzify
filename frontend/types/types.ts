@@ -3,3 +3,9 @@ export type Question = {
   options: string[];
   correctAnswer: string;
 };
+
+export interface QuizContextType {
+  questions: {
+    questions: Question[];
+  };
+}

@@ -14,13 +14,14 @@ import {
 import { MdHome } from "react-icons/md";
 
 import QuizCard from "../../components/QuizCard";
-import { Question } from "../../types/types";
+import { Question, QuizContextType } from "../../types/types";
 import { useInputText } from "../../components/InputTextContext";
 import { useQuiz } from "@/components/QuizContext";
 
 const QuizPage = () => {
-  const { questions } = useQuiz(); // Add this line
-  const initialDuration = 300; // Set the initial duration in seconds
+  const { questions }: QuizContextType = useQuiz();
+  console.log(questions); // Debugging line
+  const initialDuration = 300;
   const [seconds, setSeconds] = useState(initialDuration);
 
   useEffect(() => {
@@ -53,10 +54,8 @@ const QuizPage = () => {
     correctAnswer: "Paris",
   };
 
-  //replace header
-  // const questionsArray: Question[] = [dummyQuestion1, dummyQuestion2];
-  const questionsArray = questions.questions;
-  //move this back
+  const questionsArray: Question[] = questions.questions.questions;
+
   return (
     <Box p={4}>
       <Flex justify="space-between" align="center" w="100%">
@@ -77,23 +76,24 @@ const QuizPage = () => {
         {questionsArray.length === 0 ? (
           <Box>Warning</Box>
         ) : (
-          <Box mx="auto">
-            <Center flex="1">
-              <Box width={800} alignItems="center" justifyContent="flex-start">
-                <Progress
-                  value={progressPercentage}
-                  size="sm"
-                  height="20px"
-                  rounded="15"
-                />
-              </Box>
-            </Center>
+          <Box w="40vw" ml="-10%">
+            <Progress
+              value={progressPercentage}
+              size="sm"
+              height="20px"
+              rounded="15"
+            />
           </Box>
         )}
-
         <Box>
           <Link href="/">
-            <Button leftIcon={<Icon as={MdHome} />}>Home</Button>
+            <Button
+              colorScheme="transparent"
+              color="black"
+              leftIcon={<Icon as={MdHome} />}
+            >
+              Home
+            </Button>
           </Link>
         </Box>
       </Flex>

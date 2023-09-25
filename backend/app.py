@@ -17,13 +17,14 @@ def hello_world():
     return 'Hello, World!'
 
 
-sentList = []
+
 
 # Define a route and a function to handle POST requests
 
 
 @app.route('/post_example', methods=['POST'])
 def post_example():
+    sentList = []
     # Assuming you expect JSON data in the request
     sent_data = request.data.decode('utf-8')
     json_data = json.loads(sent_data)
