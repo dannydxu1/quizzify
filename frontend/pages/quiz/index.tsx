@@ -18,9 +18,10 @@ import { Question, QuizContextType } from "../../types/types";
 import { useInputText } from "../../components/InputTextContext";
 import { useQuiz } from "@/components/QuizContext";
 
+//TODO: Support mobile
 const QuizPage = () => {
   const { questions }: QuizContextType = useQuiz();
-  console.log(questions); // Debugging line
+
   const initialDuration = 300;
   const [seconds, setSeconds] = useState(initialDuration);
 
@@ -36,6 +37,15 @@ const QuizPage = () => {
     return () => clearInterval(interval);
   }, [seconds]);
 
+  function formatTime(seconds: number) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    const formattedSeconds = remainingSeconds.toString().padStart(2, "0");
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }
   const formattedTime = formatTime(seconds);
 
   // Calculate the progress percentage
@@ -53,10 +63,25 @@ const QuizPage = () => {
     options: ["England", "Paris", "Berlin", "Norway"],
     correctAnswer: "Paris",
   };
-
-  const questionsArray: Question[] = questions.questions.questions;
+  // @ts-ignore
+  const questionsArray: Question[] = questions.questions;
+  console.log(questionsArray);
+  if (questionsArray == null) {
+    return (
+      <Center mt="10vh">
+        <VStack>
+          <Text>
+            The user session has expired, please go back and try again.
+          </Text>
+          <Link href="/">Return to Home Page</Link>
+        </VStack>
+      </Center>
+    );
+  }
 
   return (
+    //TODO: Add null check on questionsArray
+    //TODO: Support mobile
     <Box p={4}>
       <Flex justify="space-between" align="center" w="100%">
         {questionsArray.length === 0 ? (
@@ -76,7 +101,7 @@ const QuizPage = () => {
         {questionsArray.length === 0 ? (
           <Box>Warning</Box>
         ) : (
-          <Box w="40vw" ml="-10%">
+          <Box w="30vw" ml="-10%">
             <Progress
               value={progressPercentage}
               size="sm"
@@ -85,10 +110,11 @@ const QuizPage = () => {
             />
           </Box>
         )}
+
         <Box>
           <Link href="/">
             <Button
-              colorScheme="transparent"
+              colorScheme="whiteAlpha"
               color="black"
               leftIcon={<Icon as={MdHome} />}
             >
@@ -117,16 +143,5 @@ const QuizPage = () => {
     </Box>
   );
 };
-
-// Helper function to format seconds into MM:SS
-function formatTime(seconds: number) {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-
-  const formattedMinutes = minutes.toString().padStart(2, "0");
-  const formattedSeconds = remainingSeconds.toString().padStart(2, "0");
-
-  return `${formattedMinutes}:${formattedSeconds}`;
-}
 
 export default QuizPage;

@@ -5,7 +5,6 @@ export type Question = {
 };
 
 export interface QuizContextType {
-  questions: {
-    questions: Question[];
-  };
+  questions: Question[];
+  setQuestions: React.Dispatch<React.SetStateAction<Question[]>>;
 }

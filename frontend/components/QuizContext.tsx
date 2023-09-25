@@ -5,10 +5,9 @@ interface QuizProviderProps {
   children: ReactNode;
 }
 
-// Changed `any[]` to `Question[]` here
 interface QuizContextProps {
-  questions: Question[];
-  setQuestions: React.Dispatch<React.SetStateAction<Question[]>>;
+  questions: any[];
+  setQuestions: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const QuizContext = createContext<QuizContextProps>({
@@ -16,13 +15,11 @@ const QuizContext = createContext<QuizContextProps>({
   setQuestions: () => {},
 });
 
-// Changed the return type to QuizContextProps
-export const useQuiz = (): QuizContextProps => {
+export const useQuiz = (): QuizContextType => {
   return useContext(QuizContext);
 };
-
 export const QuizProvider: React.FC<QuizProviderProps> = ({ children }) => {
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<any[]>([]);
   return (
     <QuizContext.Provider value={{ questions, setQuestions }}>
       {children}
